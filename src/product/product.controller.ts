@@ -1,7 +1,8 @@
-import {Body, Controller, Delete, Get, Param, Patch, Post, Query} from "@nestjs/common";
-import {ProductService} from "./product.service";
-import {CreateProductDto} from "./dto/create-product.dto";
-import { UpdateProductDto } from "./dto/update-product.dto";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { ProductService } from "./product.service";
+import { ProductUpdateDto } from "./dto/product-update.dto";
+import { ProductCreateDto } from "./dto/product-create.dto";
+import { PaginationQueryDto } from "./dto/pagination-query.dto";
 
 @Controller("product")
 export class ProductController {
@@ -9,29 +10,27 @@ export class ProductController {
     }
 
     @Get()
-    getAll(@Query() query): string {
-        const {limit, offset} = query;
-        return `query limit=${limit} and offset=${offset}`;
+    getAll(@Query() paginationQueryDto: PaginationQueryDto) {
+        return this.productService.findAll(paginationQueryDto);
     }
 
     @Get(":id")
-    getById(@Param("id") id: string):string {
-        this.productService.findOne(id);
-        return "get id: " + id;
+    getById(@Param("id") id: number) {
+        return this.productService.findOne(id);
     }
 
     @Post()
-    create(@Body() body: CreateProductDto): CreateProductDto {
-        return body;
+    create(@Body() product: ProductCreateDto) {
+        return this.productService.create(product);
     }
 
     @Patch(":id")
-    update(@Param("id") id: string, @Body() body: UpdateProductDto): string {
-        return "updated";
+    update(@Param("id") id: number, @Body() product: ProductUpdateDto) {
+        return this.productService.update(id, product);
     }
 
     @Delete(":id")
-    delete(@Param("id") id: string): string {
-        return "delete";
+    delete(@Param("id") id: number) {
+        return this.productService.delete(id);
     }
 }
