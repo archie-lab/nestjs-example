@@ -33,4 +33,9 @@ export class ProductController {
     delete(@Param("id") id: number) {
         return this.productService.delete(id);
     }
+
+    @Post(":id/recommend")
+    recommendProduct(@Param("id") id: number) {
+        return this.productService.recommendProduct(id);
+    }
 }

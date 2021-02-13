@@ -22,6 +22,11 @@ export class Product {
   @IsBoolean()
   available: boolean;
 
+  @Column({default: 0})
+  @IsNumber()
+  @IsPositive()
+  recommendations: number;
+
   @JoinTable()
   @ManyToMany(
     type => Label,
