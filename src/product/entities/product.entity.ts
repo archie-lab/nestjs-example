@@ -2,6 +2,7 @@ import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "t
 import { IsBoolean, IsNumber, IsPositive, IsString, ValidateNested } from "class-validator";
 import { Label } from "./label.entity";
 import { Type } from "class-transformer";
+import { ApiProperty } from "@nestjs/swagger";
 
 @Entity()
 export class Product {
@@ -9,6 +10,9 @@ export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty({
+    description: "Product name"
+  })
   @Column()
   @IsString()
   name: string;

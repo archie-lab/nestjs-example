@@ -6,12 +6,16 @@ import { PaginationQueryDto } from "./dto/pagination-query.dto";
 import { Public } from "../common/decorators/public.decorator";
 import { ParseIntPipe } from "../common/pipes/parse-int.pipe";
 import { Protocol } from "../common/decorators/protocol.decorator";
+import { ApiResponse, ApiTags } from "@nestjs/swagger";
 
+@ApiTags("product")
 @Controller("product")
 export class ProductController {
     constructor(private readonly productService: ProductService) {
     }
 
+    @ApiResponse({ status: 201, description: "The product has been successfully created."})
+    @ApiResponse({ status: 403, description: "Forbidden."})
     @Public()
     @Get()
     async getAll(@Query() paginationQueryDto: PaginationQueryDto) {
