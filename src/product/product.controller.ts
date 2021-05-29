@@ -3,12 +3,14 @@ import { ProductService } from "./product.service";
 import { ProductUpdateDto } from "./dto/product-update.dto";
 import { ProductCreateDto } from "./dto/product-create.dto";
 import { PaginationQueryDto } from "./dto/pagination-query.dto";
+import { Public } from "../common/decorators/public.decorator";
 
 @Controller("product")
 export class ProductController {
     constructor(private readonly productService: ProductService) {
     }
 
+    @Public()
     @Get()
     getAll(@Query() paginationQueryDto: PaginationQueryDto) {
         return this.productService.findAll(paginationQueryDto);
