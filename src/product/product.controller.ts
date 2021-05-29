@@ -5,6 +5,7 @@ import { ProductCreateDto } from "./dto/product-create.dto";
 import { PaginationQueryDto } from "./dto/pagination-query.dto";
 import { Public } from "../common/decorators/public.decorator";
 import { ParseIntPipe } from "../common/pipes/parse-int.pipe";
+import { Protocol } from "../common/decorators/protocol.decorator";
 
 @Controller("product")
 export class ProductController {
@@ -20,8 +21,8 @@ export class ProductController {
 
     @Public()
     @Get(":id")
-    getById(@Param("id", ParseIntPipe) id: number) {
-        console.log("getById id", id);
+    getById(@Protocol("foo") protocol, @Param("id", ParseIntPipe) id: number) {
+        console.log("ProductController - getById - protocol", protocol);
         return this.productService.findOne(id);
     }
 
