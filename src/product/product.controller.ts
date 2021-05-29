@@ -12,7 +12,8 @@ export class ProductController {
 
     @Public()
     @Get()
-    getAll(@Query() paginationQueryDto: PaginationQueryDto) {
+    async getAll(@Query() paginationQueryDto: PaginationQueryDto) {
+        await new Promise(resolve => setTimeout(resolve, 5000));
         return this.productService.findAll(paginationQueryDto);
     }
 
