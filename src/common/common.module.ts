@@ -1,7 +1,8 @@
 import { Module } from "@nestjs/common";
-import { APP_GUARD } from "@nestjs/core";
+import { APP_GUARD, APP_INTERCEPTOR } from "@nestjs/core";
 import { ApiKeyGuard } from "./guard/api-key.guard";
 import { ConfigModule } from "@nestjs/config";
+import { WrapResponseInterceptor } from "./interceptors/wrap-response.interceptor";
 
 @Module({
   imports: [ConfigModule],
@@ -9,6 +10,10 @@ import { ConfigModule } from "@nestjs/config";
     {
       provide: APP_GUARD,
       useClass: ApiKeyGuard
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: WrapResponseInterceptor
     }
   ]
 })
