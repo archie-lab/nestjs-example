@@ -25,7 +25,7 @@ export class ProductController {
 
     @Public()
     @Get(":id")
-    getById(@Protocol("foo") protocol, @Param("id", ParseIntPipe) id: number) {
+    getById(@Protocol("foo") protocol: string, @Param("id", ParseIntPipe) id: number) {
         console.log("ProductController - getById - protocol", protocol);
         return this.productService.findOne(id);
     }
